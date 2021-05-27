@@ -23,7 +23,7 @@ public class FastDevTest {
 			form.setTableName("tsys_email_template");
 			form.setMd1("sys");
 			form.setMd2("emailtemplate");
-			
+			form.setMd3("");
 			if(StringUtils.isEmpty(form.getMd1())){
 				form.setMd1(form.getTableName().substring(1, form.getTableName().indexOf("_")));
 			}
