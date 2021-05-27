@@ -2,7 +2,7 @@
  * 煜鼎, Copyright 2017-2017, All rights reserved.
  * author      date         time      
  * ─────────────────────────────────────────────
- * 臧其乐     2017年3月31日      上午10:06:37
+ * 王基鸿     2017年3月31日      上午10:06:37
 */
 package com.yuding.www.auto.dto;
 
@@ -27,7 +27,7 @@ import java.util.List;
 
 public class TableEntity {
 	private String tableName;
-	private String fkColumn;
+	private Column fkColumn;
 	private List<Column> columnList;
 	
 	
@@ -40,13 +40,12 @@ public class TableEntity {
 		this.tableName = tableName;
 	}
 
-
-	public String getFkColumn() {
+	
+	public Column getFkColumn() {
 		return fkColumn;
 	}
 
-
-	public void setFkColumn(String fkColumn) {
+	public void setFkColumn(Column fkColumn) {
 		this.fkColumn = fkColumn;
 	}
 

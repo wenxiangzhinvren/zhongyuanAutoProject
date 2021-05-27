@@ -18,7 +18,7 @@ import com.yd.ibuznet.core.base.domain.BaseDO;
 /**
  * Model class of ${tableName}.
  * 
- * @author 臧其乐 by 臧其乐 auto create
+ * @author 王基鸿 by 王基鸿 auto create
  * @version 1.0
  */
 @Entity
@@ -32,14 +32,13 @@ public class ${className} extends BaseDO implements Serializable {
 	@Id
 	@GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
-
+${fkColunm}
 ${fields}
 	/**istatus*/
 	@FieldName("istatus")
 	private Integer istatus=0;
 	
-	
-	
+${methodsId}
 ${methods}
 	
 	public  void setIstatus(Integer istatus){

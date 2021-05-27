@@ -13,7 +13,7 @@ public class FastDevTest {
 	
 	public static void main(String[] args) {
 		FastDevForm form = new FastDevForm();
-		form.setTableName("tsys_cascade_data");
+		form.setTableName("tsys_email_template");
 		form.setMd1("hehe");
 		form.setMd2("heihei");
 		

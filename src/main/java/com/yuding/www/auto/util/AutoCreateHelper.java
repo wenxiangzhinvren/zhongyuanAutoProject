@@ -84,9 +84,11 @@ public class AutoCreateHelper {
 		map.put("importPackage", getImportPackage());
 		map.put("tableName", tableName);
 		map.put("className", className);
-//		map.put("fkColunm", tableEntity.getFkColumn());
 		map.put("fields", getFields());
+		map.put("fkColunm", getIdFields(tableEntity.getFkColumn()));
+		map.put("methodsId", getMethods(tableEntity.getFkColumn()));
 		map.put("methods", getMethods());
+		
 		String tempStr = getTemp("Entity.java",map);
 		writer(filePath,tempStr);
 	}
@@ -127,6 +129,8 @@ public class AutoCreateHelper {
 		map.put("className", className);
 		map.put("fields", getFields());
 		map.put("methods", getMethods());
+		map.put("fkColunm", getIdFields(tableEntity.getFkColumn()));
+		map.put("methodsId", getMethods(tableEntity.getFkColumn()));
 		String tempStr = getTemp("Form.java",map);
 		writer(filePath,tempStr);
 	}
@@ -332,6 +336,26 @@ public class AutoCreateHelper {
 		}
 		return fields.toString();
 	}
+	private String getIdFields(Column fkColunm) {
+		StringBuffer fields = new StringBuffer();
+		fields.append("\tprivate ").append(fkColunm.getType()).append(" ").append(fkColunm.getName()).append(";").append("\n");
+		return fields.toString(); 
+	}
+	
+	private String getMethods(Column fkColunm){
+		StringBuffer methods = new StringBuffer();
+		String field = fkColunm.getName();
+		String type = getType(fkColunm.getType());
+		methods.append("\tpublic  void set").append(firstToUper(field)).append("("+type+" "+field+"){").append("\n");
+		methods.append("\t\tthis."+field+" = "+field+";").append("\n");
+		methods.append("\t}").append("\n");
+		methods.append("\tpublic "+type+" get"+firstToUper(field)+"(){").append("\n");
+		methods.append("\t\treturn this."+field+";").append("\n");
+		methods.append("\t}").append("\n");	
+		return methods.toString();
+		
+	}
+	
 	public String getType(String type){
 		if(type.contains(".")){
 			return type.substring(type.lastIndexOf(".")+1,type.length());

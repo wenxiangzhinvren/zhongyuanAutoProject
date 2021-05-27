@@ -2,7 +2,7 @@
  * 煜鼎, Copyright 2017-2017, All rights reserved.
  * author      date         time      
  * ─────────────────────────────────────────────
- * 臧其乐     ${date}      ${time}
+ * 王基鸿     ${date}      ${time}
 */
 package com.yd.ibuznet.modules.${md1}.${md2}.service.impl;
 
@@ -34,7 +34,7 @@ import com.yd.ibuznet.modules.${md1}.${md2}.specification.${className1}Spec;
  * <p>
  * 版本1.0: ${date} 新建
  * </p> 
- * @author 臧其乐  by 臧其乐 auto create
+ * @author 王基鸿  by 王基鸿 auto create
  * @version 1.0
  */
 @Service("${md1}${className2}Service")

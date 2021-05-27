@@ -2,7 +2,7 @@
  * 煜鼎, Copyright 2017-2017, All rights reserved.
  * author      date         time      
  * ─────────────────────────────────────────────
- * 臧其乐     2017年3月31日      上午9:53:17
+ * 王基鸿     2017年3月31日      上午9:53:17
 */
 package com.yuding.www.auto.util;
 
@@ -55,20 +55,29 @@ public class TableUtil {
 			List<Column> list = new ArrayList<Column>();
 			while (rs.next()) {
 				Column column = te.new Column();
-				//属性 统一小写
-				column.setName(rs.getString("Field").toLowerCase());
-				//注释格式为   中文名:注释
-				column.setComment(rs.getString("Comment").split(":")[0]);
-				String type = getJavaType(rs.getString("Type"));
-				column.setType(type);
-				if(isCreate(column.getName())){
-					column.setCreate(true);
-				}else{
-					column.setCreate(false);
-				}
-				if("id".equals(column.getComment())){
-					te.setFkColumn(column.getName());
-					column.setCreate(false);
+				/**
+				    * 主键
+				 */
+				if(rs.getString("Field").toLowerCase().contains("id")&&
+						rs.getString("Key").toLowerCase().equals("pri")&&
+						rs.getString("Null").toLowerCase().equals("no")
+						){
+					Column columnid = te.new Column();
+					columnid.setName(rs.getString("Field").toLowerCase());
+					columnid.setType(getJavaType(rs.getString("Type")));
+					te.setFkColumn(columnid);
+				}else {
+					//属性 统一小写
+					column.setName(rs.getString("Field").toLowerCase());
+					//注释格式为   中文名:注释
+					column.setComment(rs.getString("Comment").split(":")[0]);
+					String type = getJavaType(rs.getString("Type"));
+					column.setType(type);
+					if(isCreate(column.getName())){
+						column.setCreate(true);
+					}else{
+						column.setCreate(false);
+					}
 				}
 				list.add(column);
 			}
@@ -85,8 +94,7 @@ public class TableUtil {
 	}
 	public static Connection getMySQLConnection() throws Exception {
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Props props = PropsUtil.get("C:/projectwork/autoProject/src/main/resources/application.properties");
-//		Props props = PropsUtil.get(System.getProperty("user.dir")+"/config/application.properties");
+		Props props = PropsUtil.get(System.getProperty("user.dir")+"/src/main/resources/application.properties");
 		Connection conn = DriverManager.getConnection(props.getProperty("spring.datasource.url"),
 				props.getProperty("spring.datasource.username"), props.getProperty("spring.datasource.password"));
 		return conn;

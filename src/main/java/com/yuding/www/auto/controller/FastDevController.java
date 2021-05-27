@@ -39,10 +39,10 @@ import freemarker.template.TemplateException;
 @RequestMapping("fastdev")
 public class FastDevController {
 	
-	private String basePath = "C:/projectwork/autoProject/";
+	private String basePath = "C:/Users/10434/git/ibuznet/";
 	private String pagePath = basePath+"src/main/resources/templates/";
 	private String tempPath = basePath+"temp/";
-	private String classPath = basePath+ "src/main/java/com/yuding/www/modules/";
+	private String classPath =basePath+ "src/main/java/com/yd/ibuznet/modules/";
 	
 	@RequestMapping()
 	public String index(Model model){
@@ -134,4 +134,5 @@ public class FastDevController {
 		writer.close();
 		return "0";
 	}
+	
 }
