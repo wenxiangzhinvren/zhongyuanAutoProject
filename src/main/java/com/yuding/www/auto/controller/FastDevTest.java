@@ -14,7 +14,7 @@ public class FastDevTest {
 	
 	private static String basePath = "C:/Users/10434/git/ibuznet/";
 	private static String pagePath = basePath+"src/main/resources/templates/";
-	private static String tempPath = basePath+"temp/";
+	private static String tempPath = "C:/projectwork/autoProject/temp/";
 	private static String classPath = basePath+ "src/main/java/com/yd/ibuznet/modules/";
 	
 	public static void main(String[] args) {
