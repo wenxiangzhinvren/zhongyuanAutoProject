@@ -15,9 +15,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * <p>
@@ -27,10 +27,11 @@ import lombok.NoArgsConstructor;
  * @author WangJihong
  * @since 2018-08-06
  */
-@Data
+//@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name="test1_user")
 public class User implements Serializable{
