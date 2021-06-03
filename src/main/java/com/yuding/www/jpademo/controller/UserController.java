@@ -152,7 +152,7 @@ public class UserController {
 	@RequestMapping("/test3")
 	@ResponseBody
 	@Test
-	public List<User> test3(){
+	public void test3(){
 		List<User> list = userDao.findAll();
 		System.out.println("用户信息："+list);//用户信息
 		System.out.println("用户扩展信息："+list.get(0).getUserExtend());//扩展信息
@@ -162,7 +162,6 @@ public class UserController {
 				System.out.println("角色下菜单信息："+menu);//角色信息
 			}
 		}
-		return list;
 	}
 
 }

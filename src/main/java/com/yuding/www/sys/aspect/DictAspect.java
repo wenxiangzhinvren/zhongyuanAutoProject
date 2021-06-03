@@ -59,8 +59,8 @@ public class DictAspect {
 		System.out.println("****************************************");
 		System.out.println("result:"+result);
 		if (result instanceof List) {
-			List<JSONObject> items = new ArrayList<>();
-			System.out.println((List<Object>)(result));
+//			List<JSONObject> items = new ArrayList<>();
+//			System.out.println((List<Object>)(result));
 //			for (Object record : (List<Object>)(result)) {
 //				JSONObject item = parseForObj(record);
 //				items.add(item);
