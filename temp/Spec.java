@@ -51,7 +51,7 @@ public class ${className1}Spec  implements Specification<${clazzName}> {
 	@Override
 	public Predicate toPredicate(Root<${clazzName}> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 		List<Predicate> list = new ArrayList<Predicate>();
-		list.add(cb.notEqual(root.get("istatus"), -1));
+		list.add(cb.equal(root.get("istatus"), 0));
 		Predicate[] predicates = new Predicate[list.size()];
 		if (StringUtils.isNotEmpty(form.getPublicQueryParam())) {
 			return cb.and(SpecUtil.getPredicate(root, ${clazzName}.class, cb, form.getPublicQueryParam()),query.where(list.toArray(predicates)).getRestriction());
