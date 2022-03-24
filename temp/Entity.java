@@ -1,53 +1,27 @@
-package com.yd.ibuznet.modules.${md1}.${md2}.domain;
+package com.mims.csms.ky.salary.domain;
 
 
-${importPackage}
-import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
+import com.mims.csms.common.domain.BaseDomain;
 
-import com.yd.ibuznet.core.annotation.FieldName;
-import com.yd.ibuznet.core.base.domain.BaseDO;
+import lombok.Data;
+import lombok.ToString;
 
-/**
- * Model class of ${tableName}.
- * 
- * @author 王基鸿 by 王基鸿 auto create
- * @version 1.0
- */
+@Data
+@ToString
 @Entity
-@Table(name="${tableName}")
-public class ${className} extends BaseDO implements Serializable {
+@Table(catalog = "xyh", schema = "css", name = "${tableName}")
+public class ${className} extends BaseDomain {
 
 	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/** id. */
-	@Id
-	@GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
-${fkColunm}
-${fields}
-	/**istatus*/
-	@FieldName("istatus")
-	private Integer istatus=0;
+	${fields}
 	
-${methodsId}
-${methods}
-	
-	public  void setIstatus(Integer istatus){
-		this.istatus = istatus;
-	}
-	
-	public Integer getIstatus(){
-		return this.istatus;
-	}
-	
-
 }

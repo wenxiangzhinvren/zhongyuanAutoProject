@@ -6,11 +6,6 @@ import java.io.Serializable;
 import com.yd.ibuznet.core.annotation.FieldName;
 import com.yd.ibuznet.core.base.form.PageForm;
 
-/**
- * 
- * @author 王基鸿  by 王基鸿 auto create
- * @version 1.0
- */
 public class ${className}  extends PageForm implements Serializable {
 
 	/** serialVersionUID. */

@@ -4,97 +4,75 @@
  * ─────────────────────────────────────────────
  * 王基鸿    ${date}      ${time}
 */
-package com.yd.ibuznet.modules.${md1}.${md2}.controller;
+package com.mims.csms.ky.salary.web.capi.v1;
+
+import java.util.HashMap;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.yd.ibuznet.core.framework.response.Response;
+import com.mims.csms.common.core.facade.ResponsePayload;
+import com.mims.csms.common.utils.PageableUtil;
 import ${clazz};
-import com.yd.ibuznet.modules.${md1}.${md2}.form.${className1}Form;
-import com.yd.ibuznet.modules.${md1}.${md2}.service.${className1}Service;
+import com.mims.csms.ky.salary.service.${className1}Service;
+import com.mims.csms.ky.salary.repository.${className1}Repository;
+import com.mims.csms.ky.salary.mapper.${className2}.${className1}Resource;
 
-/**
- * <p>
- * 描述: 
- * </p>
- * <p>
- * 版权所有: 版权所有(C)2017-2017
- * </p>
- * <p>
- * 公 司: 煜鼎
- * </p>
- * <p>
- * 版本1.0: ${date} 新建
- * </p> 
- * @author 王基鸿  by 王基鸿 auto create
- * @version 1.0
- */
-@Controller("${md1}${className2}Controller")
-@RequestMapping("${actionPath}")
+@RestController
+@RequestMapping("/ky-salary/capi/v1/ky/${actionPath}")
 public class ${className1}Controller {
+	
 	@Autowired
 	private ${className1}Service ${className2}Service;
-	/**
-	 * 列表页面
-	 */
-	@RequestMapping(method=RequestMethod.GET)
-	public String list(){
-		return "${md1}/${className3}/list";
-	}
-	/**
-	 * 新增页面
-	 */
-	@RequestMapping(value="add",method=RequestMethod.GET)
-	public String add(){
-		return "${md1}/${className3}/add";
-	}
-	/**
-	 * 修改页面
-	 */
-	@RequestMapping(value="edit/{id}",method=RequestMethod.GET)
-	public String edit(@PathVariable String id,Model model){
-		${clazzName} md = ${className2}Service.get(id);
-		model.addAttribute("md", md);
-		return "${md1}/${className3}/edit";
+	
+	@Autowired
+	private ${className1}Repository ${className2}Repository;
+	
+	@Autowired
+	private ${className1}Resource ${className2}Resource;
+	
+	@GetMapping
+	public ResponsePayload list(String search, @RequestParam(required = false) HashMap<String, String> pageMap){
+		Pageable pageable = PageableUtil.fromMap(pageMap);
+		Page<${className1}> list = ${className2}Repository.findByRsql(search, pageable);
+		return ResponsePayload.success(list);
 	}
 
-	/**
-	 * 列表数据
-	 */
-	@ResponseBody
-	@RequestMapping(value="list",method=RequestMethod.POST)
-	public Response grid(${className1}Form form){
-		return ${className2}Service.getList(form);
+	@Transactional
+	@PostMapping
+	public ResponsePayload save(@RequestBody ${className1} ${className2}) {
+		${className2}Repository.save(${className2});
+		return ResponsePayload.success(${className2});
 	}
-	/**
-	 * 新增
-	 */
-	@ResponseBody
-	@RequestMapping(value="save",method=RequestMethod.POST)
-	public Response save(${className1}Form form){
-		return ${className2}Service.save(form);
-	}
-	/**
-	 * 修改
-	 */
-	@ResponseBody
-	@RequestMapping(value="update",method=RequestMethod.POST)
-	public Response update(${className1}Form form){
-		return ${className2}Service.update(form);
-	}
-	/**
-	 * 删除
-	 */
-	@ResponseBody
-	@RequestMapping(value="delete/{id}",method=RequestMethod.POST)
-	public Response update(@PathVariable String id){
-		return ${className2}Service.delete(id);
+	
+	@GetMapping({"/load/{id}"})
+	public ResponsePayload load(@PathVariable String id) {
+		${className1} data = ${className2}Repository.findOne(id);
+		return ResponsePayload.success(data);
 	}
 
+	@PutMapping
+	public ResponsePayload update(@RequestBody ${className1} ${className2}) {
+		${className2}Repository.save(${className2});
+		return ResponsePayload.success(${className2});
+	}
+
+	@Transactional
+	@DeleteMapping("/{id}")
+	public ResponsePayload delete(@PathVariable String id){
+		${className2}Repository.deleteLogic(id);
+		return ResponsePayload.success();
+	}
 }

@@ -50,7 +50,49 @@ public class TableUtil {
 		try {
 			conn = getMySQLConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("show full columns from " + tableName);
+			//tableName
+//			rs = stmt.executeQuery("show full columns from " + tableName);
+			rs = stmt.executeQuery(""
+					+ "SELECT\r\n"
+					+ "	'Field'     = a.name,\r\n"
+					+ "	'Key'       =\r\n"
+					+ "CASE\r\n"
+					+ "	WHEN EXISTS (\r\n"
+					+ "	SELECT\r\n"
+					+ "		1 \r\n"
+					+ "	FROM\r\n"
+					+ "		sysobjects \r\n"
+					+ "	WHERE\r\n"
+					+ "		xtype = 'PK' \r\n"
+					+ "		AND parent_obj = a.id \r\n"
+					+ "		AND name IN ( SELECT name FROM sysindexes WHERE indid IN ( SELECT indid FROM sysindexkeys WHERE id = a.id AND colid = a.colid ) ) \r\n"
+					+ "		) THEN\r\n"
+					+ "		'PRI' ELSE '' \r\n"
+					+ "	END,\r\n"
+					+ "	'Type'       = b.name,\r\n"
+					+ "	'Null'     =\r\n"
+					+ "CASE\r\n"
+					+ "		WHEN a.isnullable= 1 THEN\r\n"
+					+ "		'YES' ELSE 'NO' \r\n"
+					+ "	END,\r\n"
+					+ "  'Comment'   = isnull(g.[value],'')\r\n"
+					+ "FROM\r\n"
+					+ "	syscolumns a\r\n"
+					+ "	LEFT JOIN systypes b ON a.xusertype= b.xusertype\r\n"
+					+ "	INNER JOIN sysobjects d ON a.id= d.id \r\n"
+					+ "	AND d.xtype= 'U' \r\n"
+					+ "	AND d.name<> 'dtproperties'\r\n"
+					+ "	LEFT JOIN syscomments e ON a.cdefault= e.id\r\n"
+					+ "	LEFT JOIN sys.extended_properties g ON a.id= g.major_id \r\n"
+					+ "	AND a.colid= g.minor_id\r\n"
+					+ "	LEFT JOIN sys.extended_properties f ON d.id= f.major_id \r\n"
+					+ "	AND f.minor_id= 0 \r\n"
+					+ "WHERE\r\n"
+					+ "	d.name= '"+tableName+"'\r\n"
+					+ "ORDER BY\r\n"
+					+ "	a.id,\r\n"
+					+ "	a.colorder");
+			
 			TableEntity te = new TableEntity();
 			List<Column> list = new ArrayList<Column>();
 			while (rs.next()) {
@@ -58,15 +100,15 @@ public class TableUtil {
 				/**
 				    * 主键
 				 */
-				if(rs.getString("Field").toLowerCase().contains("id")&&
-						rs.getString("Key").toLowerCase().equals("pri")&&
-						rs.getString("Null").toLowerCase().equals("no")
-						){
-					Column columnid = te.new Column();
-					columnid.setName(rs.getString("Field").toLowerCase());
-					columnid.setType(getJavaType(rs.getString("Type")));
-					te.setFkColumn(columnid);
-				}else {
+//				if(rs.getString("Field").toLowerCase().contains("id")&&
+//						rs.getString("Key").toLowerCase().equals("pri")&&
+//						rs.getString("Null").toLowerCase().equals("no")
+//						){
+//					Column columnid = te.new Column();
+//					columnid.setName(rs.getString("Field").toLowerCase());
+//					columnid.setType(getJavaType(rs.getString("Type")));
+//					te.setFkColumn(columnid);
+//				}else {
 					//属性 统一小写
 					column.setName(rs.getString("Field").toLowerCase());
 					//注释格式为   中文名:注释
@@ -78,7 +120,7 @@ public class TableUtil {
 					}else{
 						column.setCreate(false);
 					}
-				}
+//				}
 				list.add(column);
 			}
 			te.setColumnList(list);
@@ -107,7 +149,7 @@ public class TableUtil {
 		return true;
 	}
 	public static String getJavaType(String type){
-		if(type.startsWith("varchar")){
+		if(type.startsWith("varchar")||type.startsWith("char")){
 			return "String";
 		}
 		if(type.startsWith("int")){
@@ -121,7 +163,7 @@ public class TableUtil {
 			return "java.util.Date";
 		}
 		
-		if(type.startsWith("decimal")){
+		if(type.startsWith("decimal")||type.startsWith("numeric")){
 			return "java.math.BigDecimal";
 		}
 		return type;
