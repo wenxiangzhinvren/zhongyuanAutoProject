@@ -26,6 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mims.csms.common.core.facade.ResponsePayload;
 import com.mims.csms.common.utils.PageableUtil;
+import com.mims.csms.common.utils.RsqlCustUtils;
+import com.mims.csms.common.utils.StringUtil;
+
 import ${clazz};
 import com.mims.csms.ky.salary.service.${className1}Service;
 import com.mims.csms.ky.salary.repository.$
@@ -93,9 +96,12 @@ public class ${className1}Controller {
 	}
 	
 	@Transactional
-	@DeleteMapping("/batchDelete")
+	@PostMapping("/batchDelete")
 	public ResponsePayload batchDelete(@RequestBody List<${className1}> ${className2}) {
-		${className2}Repository.deleteLogic(${className2});
+		List<String> itemIds = RsqlCustUtils.getIdByList(${className2});
+		String search = String.format("id=in=(%s)", StringUtil.join(itemIds, ","));
+		List<${className1}> delItems = ${className2}Repository.findByRsql(search);
+		ydWangjihongRepository.deleteLogic(delItems);
 		return ResponsePayload.success();
 	}
 }
