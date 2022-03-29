@@ -7,6 +7,7 @@
 package com.mims.csms.ky.salary.web.capi.v1;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -27,7 +28,8 @@ import com.mims.csms.common.core.facade.ResponsePayload;
 import com.mims.csms.common.utils.PageableUtil;
 import ${clazz};
 import com.mims.csms.ky.salary.service.${className1}Service;
-import com.mims.csms.ky.salary.repository.${className1}Repository;
+import com.mims.csms.ky.salary.repository.$
+import com.mims.csms.ky.salary.domain.YdWangjihong;
 import com.mims.csms.ky.salary.mapper.${className2}.${className1}Resource;
 
 @RestController
@@ -73,6 +75,27 @@ public class ${className1}Controller {
 	@DeleteMapping("/{id}")
 	public ResponsePayload delete(@PathVariable String id){
 		${className2}Repository.deleteLogic(id);
+		return ResponsePayload.success();
+	}
+	
+	@Transactional
+	@PostMapping("/bashSave")
+	public ResponsePayload bashSave(@RequestBody List<${className1}> ${className2}) {
+		${className2}Repository.bashSave(${className2});
+		return ResponsePayload.success(${className2});
+	}
+	
+	@Transactional
+	@PutMapping("/bashUpdate")
+	public ResponsePayload bashUpdate(@RequestBody List<${className1}> ${className2}) {
+		${className2}Repository.bashUpdate(${className2});
+		return ResponsePayload.success(${className2});
+	}
+	
+	@Transactional
+	@DeleteMapping("/batchDelete")
+	public ResponsePayload batchDelete(@RequestBody List<${className1}> ${className2}) {
+		${className2}Repository.deleteLogic(${className2});
 		return ResponsePayload.success();
 	}
 }
