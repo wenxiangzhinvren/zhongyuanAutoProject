@@ -70,7 +70,7 @@ public class AutoCreateHelper {
 //		createServiceImpl();
 		crateRepository();
 		crateResource();
-//		crateSpec();
+		crateXML();
 	}
 	
 	public void createController() {
@@ -127,6 +127,34 @@ public class AutoCreateHelper {
 		map.put("date", sdf.format(new Date()));
 		map.put("time", sdf2.format(new Date()));
 		String tempStr = getTemp("Resource.java",map);
+		writer(path,tempStr);
+	}
+	
+	public void crateXML(){
+		String path = classPath + "mapper/";
+		String autoName = "";
+		if(StringUtils.isNotEmpty(md1)) {
+			autoName += firstToUper(md1);
+		}
+		if(StringUtils.isNotEmpty(md2)) {
+			autoName += firstToUper(md2);
+		}
+		if(StringUtils.isNotEmpty(md3)) {
+			autoName += firstToUper(md3);
+		}
+		path += firstToLower(autoName)+"/daoMapper.xml";
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("md1", md1);
+		map.put("md2", md2);
+		map.put("className1", autoName);
+		map.put("className2", firstToLower(autoName));
+		map.put("clazz", clazz);
+		map.put("clazzName", className);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
+		map.put("date", sdf.format(new Date()));
+		map.put("time", sdf2.format(new Date()));
+		String tempStr = getTemp("daoMapper.xml",map);
 		writer(path,tempStr);
 	}
 	
