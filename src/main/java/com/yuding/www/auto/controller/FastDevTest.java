@@ -12,7 +12,7 @@ public class FastDevTest {
 	public static void main(String[] args) {
 		try {
 			FastDevForm form = new FastDevForm();
-			form.setTableName("YD_WANGJIHONG");
+			form.setTableName("YD_WANGJIHONG");//表名
 			AutoCreateHelper ac = new AutoCreateHelper();
 			ac.createAll(tempPath,classPath,form);
 			System.out.println("生成成功");
