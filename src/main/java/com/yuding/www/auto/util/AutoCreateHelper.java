@@ -412,7 +412,7 @@ public class AutoCreateHelper {
 					fieldName += this.firstToUper(fieldNames[i]);
 				}
 			}
-			fields.append("\tprivate ").append(type).append(" ").append(fieldName).append(";").append("\n");
+			fields.append("\tprivate ").append(type).append(" ").append(fieldName).append(";").append("\n\n");
 		}
 		return fields.toString();
 	}
