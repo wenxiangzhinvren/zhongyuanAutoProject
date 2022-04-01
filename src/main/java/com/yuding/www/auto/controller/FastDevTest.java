@@ -15,7 +15,7 @@ public class FastDevTest {
 	
 	//包如：bc,cdm,cer,cms 适用于/csms-crew-server
 	//无包名 适用于/csms-salary-server
-	private static String packageName = "yuding"; //需修改看是否有包名
+	private static String packageName = "tm"; //需修改看是否有包名
 //	private static String packageName = "";
 	
 	//com.mims.csms.crew
@@ -26,7 +26,7 @@ public class FastDevTest {
 	public static void main(String[] args) {
 		try {
 			FastDevForm form = new FastDevForm();
-			form.setTableName("YD_WANGJIHONG");//表名
+			form.setTableName("TM_MATERIAL");//表名
 			AutoCreateHelper ac = new AutoCreateHelper();
 			ac.createAll(tempPath,classPath,form,packagePrefix,packageName);
 			System.out.println("生成成功");

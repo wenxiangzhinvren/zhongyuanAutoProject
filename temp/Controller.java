@@ -26,7 +26,6 @@ import com.mims.csms.common.utils.StringUtil;
 import ${clazz};
 import ${packagePath}.service${packageNameSuffix}.${className1}Service;
 import ${packagePath}.repository${packageNameSuffix}.${className1}Repository;
-import ${packagePath}.domain${packageNameSuffix}.YdWangjihong;
 import ${packagePath}.mapper${packageNameSuffix}.${className2}.${className1}Resource;
 
 @RestController
@@ -95,7 +94,7 @@ public class ${className1}Controller {
 		List<String> itemIds = RsqlCustUtils.getIdByList(${className2});
 		String search = String.format("id=in=(%s)", StringUtil.join(itemIds, ","));
 		List<${className1}> delItems = ${className2}Repository.findByRsql(search);
-		ydWangjihongRepository.deleteLogic(delItems);
+		${className2}Repository.deleteLogic(delItems);
 		return ResponsePayload.success();
 	}
 }
