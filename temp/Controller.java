@@ -1,10 +1,4 @@
-/**
- * 煜鼎, Copyright 2017-2017, All rights reserved.
- * author      date         time      
- * ─────────────────────────────────────────────
- * 王基鸿    ${date}      ${time}
-*/
-package com.mims.csms.ky.salary.web.capi.v1;
+package ${packagePath}.web.capi.v1${packageNameSuffix};
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,13 +24,13 @@ import com.mims.csms.common.utils.RsqlCustUtils;
 import com.mims.csms.common.utils.StringUtil;
 
 import ${clazz};
-import com.mims.csms.ky.salary.service.${className1}Service;
-import com.mims.csms.ky.salary.repository.$
-import com.mims.csms.ky.salary.domain.YdWangjihong;
-import com.mims.csms.ky.salary.mapper.${className2}.${className1}Resource;
+import ${packagePath}.service${packageNameSuffix}.${className1}Service;
+import ${packagePath}.repository${packageNameSuffix}.${className1}Repository;
+import ${packagePath}.domain${packageNameSuffix}.YdWangjihong;
+import ${packagePath}.mapper${packageNameSuffix}.${className2}.${className1}Resource;
 
 @RestController
-@RequestMapping("/ky-salary/capi/v1/ky/${actionPath}")
+@RequestMapping("/capi/v1${requestMappingSuffix}/${actionPath}")
 public class ${className1}Controller {
 	
 	@Autowired

@@ -1,4 +1,4 @@
-package com.mims.csms.ky.salary.domain;
+package ${packagePath}.domain${packageNameSuffix};
 
 
 import java.math.BigDecimal;

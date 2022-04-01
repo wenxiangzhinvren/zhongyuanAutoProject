@@ -1,10 +1,10 @@
-package com.mims.csms.ky.salary.service;
+package ${packagePath}.service${packageNameSuffix};
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mims.csms.ky.salary.mapper.${className2}.${className1}Resource;
-import com.mims.csms.ky.salary.repository.${className1}Repository;
+import ${packagePath}.mapper${packageNameSuffix}.${className2}.${className1}Resource;
+import ${packagePath}.repository${packageNameSuffix}.${className1}Repository;
 
 @Service
 public class ${className1}Service {

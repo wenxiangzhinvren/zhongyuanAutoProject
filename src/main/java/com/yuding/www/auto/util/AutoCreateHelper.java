@@ -57,12 +57,16 @@ public class AutoCreateHelper {
 	private String md3;
 	private String clazz;
 	private String className;
+	private String packageName;
+	private String packagePath;
+	private String packageNameSuffix;
+	private String requestMappingSuffix;
 	private TableEntity tableEntity;
 	@SuppressWarnings("deprecation")
 	private Configuration cfg = new Configuration();
 	
-	public void createAll(String tempPath,String classPath,FastDevForm form){
-		init(tempPath,classPath,form);
+	public void createAll(String tempPath,String classPath,FastDevForm form,String packagePrefix,String packageName){
+		init(tempPath,classPath,form,packagePrefix,packageName);
 		createEntity();
 //		createForm();
 		createController();
@@ -74,7 +78,7 @@ public class AutoCreateHelper {
 	}
 	
 	public void createController() {
-		String path = classPath + "web/capi/v1/";
+		String path = classPath + "web/capi/v1/"+(StringUtils.isNotEmpty(packageName)?packageName+"/":"");
 		String autoName = "";
 		if(StringUtils.isNotEmpty(md1)) {
 			autoName += firstToUper(md1);
@@ -92,6 +96,10 @@ public class AutoCreateHelper {
 		map.put("className1", autoName);
 		map.put("className2", firstToLower(autoName));
 		map.put("clazz", clazz);
+		map.put("packagePath", packagePath);
+		map.put("packageNameSuffix", packageNameSuffix);
+		map.put("requestMappingSuffix", requestMappingSuffix);
+		map.put("packageName", packageName);
 		map.put("actionPath", actionPath.substring(1, actionPath.length() - 1));
 		map.put("clazzName", className);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd");
@@ -103,7 +111,7 @@ public class AutoCreateHelper {
 	}
 	
 	public void crateResource(){
-		String path = classPath + "mapper/";
+		String path = classPath + "mapper/"+(StringUtils.isNotEmpty(packageName)?packageName+"/":"");
 		String autoName = "";
 		if(StringUtils.isNotEmpty(md1)) {
 			autoName += firstToUper(md1);
@@ -122,6 +130,10 @@ public class AutoCreateHelper {
 		map.put("className2", firstToLower(autoName));
 		map.put("clazz", clazz);
 		map.put("clazzName", className);
+		map.put("packagePath", packagePath);
+		map.put("packageNameSuffix", packageNameSuffix);
+		map.put("requestMappingSuffix", requestMappingSuffix);
+		map.put("packageName", packageName);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
 		map.put("date", sdf.format(new Date()));
@@ -131,7 +143,7 @@ public class AutoCreateHelper {
 	}
 	
 	public void crateXML(){
-		String path = classPath + "mapper/";
+		String path = classPath + "mapper/"+(StringUtils.isNotEmpty(packageName)?packageName+"/":"");
 		String autoName = "";
 		if(StringUtils.isNotEmpty(md1)) {
 			autoName += firstToUper(md1);
@@ -150,6 +162,10 @@ public class AutoCreateHelper {
 		map.put("className2", firstToLower(autoName));
 		map.put("clazz", clazz);
 		map.put("clazzName", className);
+		map.put("packagePath", packagePath);
+		map.put("packageNameSuffix", packageNameSuffix);
+		map.put("requestMappingSuffix", requestMappingSuffix);
+		map.put("packageName", packageName);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
 		map.put("date", sdf.format(new Date()));
@@ -159,7 +175,7 @@ public class AutoCreateHelper {
 	}
 	
 	public void createService(){
-		String path = classPath + "service/";
+		String path = classPath + "service/"+(StringUtils.isNotEmpty(packageName)?packageName+"/":"");
 		String autoName = "";
 		if(StringUtils.isNotEmpty(md1)) {
 			autoName += firstToUper(md1);
@@ -178,6 +194,10 @@ public class AutoCreateHelper {
 		map.put("className2", firstToLower(autoName));
 		map.put("clazz", clazz);
 		map.put("clazzName", className);
+		map.put("packagePath", packagePath);
+		map.put("packageNameSuffix", packageNameSuffix);
+		map.put("requestMappingSuffix", requestMappingSuffix);
+		map.put("packageName", packageName);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
 		map.put("date", sdf.format(new Date()));
@@ -187,7 +207,7 @@ public class AutoCreateHelper {
 	}
 	
 	public void crateRepository(){
-		String path = classPath + "repository/";
+		String path = classPath + "repository/"+(StringUtils.isNotEmpty(packageName)?packageName+"/":"");
 		String autoName = "";
 		if(StringUtils.isNotEmpty(md1)) {
 			autoName += firstToUper(md1);
@@ -206,6 +226,10 @@ public class AutoCreateHelper {
 		map.put("className2", firstToLower(autoName));
 		map.put("clazz", clazz);
 		map.put("clazzName", className);
+		map.put("packagePath", packagePath);
+		map.put("packageNameSuffix", packageNameSuffix);
+		map.put("requestMappingSuffix", requestMappingSuffix);
+		map.put("packageName", packageName);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
 		map.put("date", sdf.format(new Date()));
@@ -216,7 +240,7 @@ public class AutoCreateHelper {
 	
 	public void createEntity(){
 		String className = firstToUper(md1)+firstToUper(md2)+(StringUtils.isNotEmpty(md3) ? firstToUper(md3) : "");
-		String filePath = classPath+"domain/"+className+ ".java";
+		String filePath = classPath+"domain/"+(StringUtils.isNotEmpty(packageName)?packageName+"/":"")+className+ ".java";
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("md1", md1);
 		map.put("md2", md2);
@@ -224,6 +248,10 @@ public class AutoCreateHelper {
 		map.put("tableName", tableName);
 		map.put("className", className);
 		map.put("fields", getFields());
+		map.put("packagePath", packagePath);
+		map.put("packageNameSuffix", packageNameSuffix);
+		map.put("requestMappingSuffix", requestMappingSuffix);
+		map.put("packageName", packageName);
 //		map.put("fkColunm", getIdFields(tableEntity.getFkColumn()));
 //		map.put("methodsId", getMethods(tableEntity.getFkColumn()));
 //		map.put("methods", getMethods());
@@ -460,7 +488,7 @@ public class AutoCreateHelper {
 		return methods.toString();
 		
 	}
-	public void init(String tempPath,String classPath,FastDevForm form){
+	public void init(String tempPath,String classPath,FastDevForm form,String packagePrefix,String packageName){
 		this.tableName=form.getTableName().toLowerCase();
 		String[]tableNames = tableName.split("_");
 		if(tableNames.length>0) {
@@ -473,9 +501,13 @@ public class AutoCreateHelper {
 			this.md3 = tableNames[2];
 		}
 		this.classPath = classPath;
+		this.packageName = packageName;
+		this.packageNameSuffix = StringUtils.isNotEmpty(packageName)?"."+packageName:"";
+		this.requestMappingSuffix = StringUtils.isNotEmpty(packageName)?"/"+packageName:"";
 		this.actionPath = "/" + md1 + "-" + md2 + (StringUtils.isNotEmpty(md3) ? ("-" + md3 + "/") : "/");
 		className = firstToUper(md1)+firstToUper(md2)+(StringUtils.isNotEmpty(md3) ? firstToUper(md3) : "");
-		this.clazz = "com.mims.csms.ky.salary.domain."+className;
+		this.clazz = "com.mims.csms."+packagePrefix.replaceAll("/", ".")+".domain."+(StringUtils.isNotEmpty(packageName)?packageName+".":"")+className;
+		this.packagePath = "com.mims.csms."+packagePrefix.replaceAll("/", ".");
 		try {
 			cfg.setDirectoryForTemplateLoading(new File(tempPath));
 		} catch (IOException e) {

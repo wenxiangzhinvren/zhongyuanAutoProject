@@ -1,4 +1,5 @@
-package com.mims.csms.ky.salary.repository;
+package ${packagePath}.repository${packageNameSuffix};
+
 
 import com.mims.csms.common.core.dao.BaseRepository;
 import org.springframework.stereotype.Repository;
