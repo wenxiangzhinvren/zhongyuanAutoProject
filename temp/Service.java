@@ -14,5 +14,8 @@ public class ${className1}Service {
     
     @Autowired
 	private ${className1}Resource ${className2}Resource;
+	
+	@Autowired
+	private ${className1}Service ${className2}Service;
 }
 
